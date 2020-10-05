@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
+        <attribute name="body" optional="YES" attributeType="Binary"/>
+        <attribute name="sent" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="sentWith" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicKey" inverseName="messages" inverseEntity="PublicKey"/>
+    </entity>
+    <entity name="PrivateKey" representedClassName="PrivateKey" syncable="YES" codeGenerationType="class">
+        <attribute name="key" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="PublicKey" representedClassName="PublicKey" syncable="YES" codeGenerationType="class">
+        <attribute name="key" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Message" inverseName="sentWith" inverseEntity="Message"/>
+    </entity>
+    <configuration name="Private" usedWithCloudKit="YES">
+        <memberEntity name="PrivateKey"/>
+    </configuration>
+    <configuration name="Public" usedWithCloudKit="YES">
+        <memberEntity name="PublicKey"/>
+        <memberEntity name="Message"/>
+    </configuration>
+    <elements>
+        <element name="Message" positionX="-54" positionY="9" width="128" height="88"/>
+        <element name="PublicKey" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="PrivateKey" positionX="-63" positionY="36" width="128" height="58"/>
+    </elements>
+</model>

@@ -7,6 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97A13B5B2529042500FA27E1 /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A13B5A2529042500FA27E1 /* KeyView.swift */; };
+		97A13B5C2529042500FA27E1 /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A13B5A2529042500FA27E1 /* KeyView.swift */; };
+		97A13B5D2529042500FA27E1 /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A13B5A2529042500FA27E1 /* KeyView.swift */; };
+		97A93BE8252913F7001E103C /* KeychainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BE7252913F7001E103C /* KeychainModel.swift */; };
+		97A93BE9252913F7001E103C /* KeychainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BE7252913F7001E103C /* KeychainModel.swift */; };
+		97A93BEA252913F7001E103C /* KeychainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BE7252913F7001E103C /* KeychainModel.swift */; };
+		97A93BF22529172D001E103C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BF12529172D001E103C /* UserModel.swift */; };
+		97A93BF32529172D001E103C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BF12529172D001E103C /* UserModel.swift */; };
+		97A93BF42529172D001E103C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BF12529172D001E103C /* UserModel.swift */; };
+		97A93BFF25292164001E103C /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BFE25292164001E103C /* EnvironmentValues.swift */; };
+		97A93C0025292164001E103C /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BFE25292164001E103C /* EnvironmentValues.swift */; };
+		97A93C0125292164001E103C /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93BFE25292164001E103C /* EnvironmentValues.swift */; };
+		97A93C0E25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C0D25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift */; };
+		97A93C0F25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C0D25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift */; };
+		97A93C1025292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C0D25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift */; };
+		97A93C1825292BCD001E103C /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C1725292BCD001E103C /* GenericPasswordConvertible.swift */; };
+		97A93C1925292BCD001E103C /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C1725292BCD001E103C /* GenericPasswordConvertible.swift */; };
+		97A93C1A25292BCD001E103C /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C1725292BCD001E103C /* GenericPasswordConvertible.swift */; };
+		97A93C1F25292BEF001E103C /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C1E25292BEF001E103C /* Data+Additions.swift */; };
+		97A93C2025292BEF001E103C /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C1E25292BEF001E103C /* Data+Additions.swift */; };
+		97A93C2125292BEF001E103C /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C1E25292BEF001E103C /* Data+Additions.swift */; };
+		97A93C45252A26D7001E103C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C44252A26D7001E103C /* Crypto.swift */; };
+		97A93C46252A26D7001E103C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C44252A26D7001E103C /* Crypto.swift */; };
+		97A93C47252A26D7001E103C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C44252A26D7001E103C /* Crypto.swift */; };
+		97A93C50252A9DFF001E103C /* MessagesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C4F252A9DFF001E103C /* MessagesListView.swift */; };
+		97A93C51252A9DFF001E103C /* MessagesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C4F252A9DFF001E103C /* MessagesListView.swift */; };
+		97A93C52252A9DFF001E103C /* MessagesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C4F252A9DFF001E103C /* MessagesListView.swift */; };
+		97A93C5A252AA014001E103C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C59252AA014001E103C /* MessageView.swift */; };
+		97A93C5B252AA014001E103C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C59252AA014001E103C /* MessageView.swift */; };
+		97A93C5C252AA014001E103C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C59252AA014001E103C /* MessageView.swift */; };
+		97A93C61252AB1C7001E103C /* MessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C60252AB1C7001E103C /* MessageFormView.swift */; };
+		97A93C62252AB1C7001E103C /* MessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C60252AB1C7001E103C /* MessageFormView.swift */; };
+		97A93C63252AB1C7001E103C /* MessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C60252AB1C7001E103C /* MessageFormView.swift */; };
+		97BCF3552528FE7300A3A490 /* PublicKeyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCF3542528FE7300A3A490 /* PublicKeyListView.swift */; };
+		97BCF3562528FE7300A3A490 /* PublicKeyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCF3542528FE7300A3A490 /* PublicKeyListView.swift */; };
+		97BCF3572528FE7300A3A490 /* PublicKeyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCF3542528FE7300A3A490 /* PublicKeyListView.swift */; };
 		97C8E1032527D6400006AD16 /* MessangerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1022527D6400006AD16 /* MessangerApp.swift */; };
 		97C8E1052527D6400006AD16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1042527D6400006AD16 /* ContentView.swift */; };
 		97C8E1072527D6400006AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C8E1062527D6400006AD16 /* Assets.xcassets */; };
@@ -15,6 +51,7 @@
 		97C8E10F2527D6400006AD16 /* Messanger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E10D2527D6400006AD16 /* Messanger.xcdatamodeld */; };
 		97C8E11A2527D6400006AD16 /* MessangerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1192527D6400006AD16 /* MessangerTests.swift */; };
 		97C8E1252527D6410006AD16 /* MessangerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1242527D6410006AD16 /* MessangerUITests.swift */; };
+		97C8E13B2527D84D0006AD16 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C8E13A2527D84D0006AD16 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +72,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97A13B5A2529042500FA27E1 /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
+		97A93BE7252913F7001E103C /* KeychainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainModel.swift; sourceTree = "<group>"; };
+		97A93BF12529172D001E103C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		97A93BFE25292164001E103C /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
+		97A93C0D25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Curve25519KeyAgreementPrivateKey+Additions.swift"; sourceTree = "<group>"; };
+		97A93C1725292BCD001E103C /* GenericPasswordConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPasswordConvertible.swift; sourceTree = "<group>"; };
+		97A93C1E25292BEF001E103C /* Data+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Additions.swift"; sourceTree = "<group>"; };
+		97A93C44252A26D7001E103C /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		97A93C4F252A9DFF001E103C /* MessagesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesListView.swift; sourceTree = "<group>"; };
+		97A93C59252AA014001E103C /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		97A93C60252AB1C7001E103C /* MessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFormView.swift; sourceTree = "<group>"; };
+		97BCF3542528FE7300A3A490 /* PublicKeyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyListView.swift; sourceTree = "<group>"; };
 		97C8E0FF2527D6400006AD16 /* Messanger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messanger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C8E1022527D6400006AD16 /* MessangerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerApp.swift; sourceTree = "<group>"; };
 		97C8E1042527D6400006AD16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,6 +98,8 @@
 		97C8E1202527D6410006AD16 /* MessangerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessangerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C8E1242527D6410006AD16 /* MessangerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerUITests.swift; sourceTree = "<group>"; };
 		97C8E1262527D6410006AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97C8E1352527D8380006AD16 /* Messanger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Messanger.entitlements; sourceTree = "<group>"; };
+		97C8E13A2527D84D0006AD16 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97C8E13B2527D84D0006AD16 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +128,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		97A13B612529045C00FA27E1 /* Private Key */ = {
+			isa = PBXGroup;
+			children = (
+				97A13B5A2529042500FA27E1 /* KeyView.swift */,
+			);
+			path = "Private Key";
+			sourceTree = "<group>";
+		};
+		97A13B622529046B00FA27E1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				97C8E1042527D6400006AD16 /* ContentView.swift */,
+				97A93BFE25292164001E103C /* EnvironmentValues.swift */,
+				97A93BE7252913F7001E103C /* KeychainModel.swift */,
+				97C8E1022527D6400006AD16 /* MessangerApp.swift */,
+				97A93BF12529172D001E103C /* UserModel.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		97A13B632529047A00FA27E1 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				97C8E10D2527D6400006AD16 /* Messanger.xcdatamodeld */,
+				97C8E10B2527D6400006AD16 /* Persistence.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		97A93C0B25292B55001E103C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				97A93C0D25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift */,
+				97A93C1E25292BEF001E103C /* Data+Additions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		97A93C0C25292B70001E103C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				97A93C1725292BCD001E103C /* GenericPasswordConvertible.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		97A93C43252A26B6001E103C /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				97A93C44252A26D7001E103C /* Crypto.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		97A93C4E252A9DE1001E103C /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				97A93C60252AB1C7001E103C /* MessageFormView.swift */,
+				97A93C4F252A9DFF001E103C /* MessagesListView.swift */,
+				97A93C59252AA014001E103C /* MessageView.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		97BCF35B2528FE7A00A3A490 /* Public Key */ = {
+			isa = PBXGroup;
+			children = (
+				97BCF3542528FE7300A3A490 /* PublicKeyListView.swift */,
+			);
+			path = "Public Key";
+			sourceTree = "<group>";
+		};
 		97C8E0F62527D6400006AD16 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +207,7 @@
 				97C8E1182527D6400006AD16 /* MessangerTests */,
 				97C8E1232527D6410006AD16 /* MessangerUITests */,
 				97C8E1002527D6400006AD16 /* Products */,
+				97C8E1392527D84D0006AD16 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +224,18 @@
 		97C8E1012527D6400006AD16 /* Messanger */ = {
 			isa = PBXGroup;
 			children = (
-				97C8E1022527D6400006AD16 /* MessangerApp.swift */,
-				97C8E1042527D6400006AD16 /* ContentView.swift */,
+				97A13B622529046B00FA27E1 /* Application */,
 				97C8E1062527D6400006AD16 /* Assets.xcassets */,
-				97C8E10B2527D6400006AD16 /* Persistence.swift */,
+				97A93C43252A26B6001E103C /* Crypto */,
+				97A93C0B25292B55001E103C /* Extensions */,
 				97C8E1102527D6400006AD16 /* Info.plist */,
-				97C8E10D2527D6400006AD16 /* Messanger.xcdatamodeld */,
+				97A93C4E252A9DE1001E103C /* Messages */,
+				97C8E1352527D8380006AD16 /* Messanger.entitlements */,
+				97A13B632529047A00FA27E1 /* Persistence */,
 				97C8E1082527D6400006AD16 /* Preview Content */,
+				97A13B612529045C00FA27E1 /* Private Key */,
+				97A93C0C25292B70001E103C /* Protocols */,
+				97BCF35B2528FE7A00A3A490 /* Public Key */,
 			);
 			path = Messanger;
 			sourceTree = "<group>";
@@ -134,6 +264,14 @@
 				97C8E1262527D6410006AD16 /* Info.plist */,
 			);
 			path = MessangerUITests;
+			sourceTree = "<group>";
+		};
+		97C8E1392527D84D0006AD16 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97C8E13A2527D84D0006AD16 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,8 +405,20 @@
 			files = (
 				97C8E10C2527D6400006AD16 /* Persistence.swift in Sources */,
 				97C8E1052527D6400006AD16 /* ContentView.swift in Sources */,
+				97A93C50252A9DFF001E103C /* MessagesListView.swift in Sources */,
+				97A93BF22529172D001E103C /* UserModel.swift in Sources */,
+				97A93C61252AB1C7001E103C /* MessageFormView.swift in Sources */,
+				97A93C1F25292BEF001E103C /* Data+Additions.swift in Sources */,
+				97A93C0E25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */,
+				97A13B5B2529042500FA27E1 /* KeyView.swift in Sources */,
+				97A93C1825292BCD001E103C /* GenericPasswordConvertible.swift in Sources */,
 				97C8E1032527D6400006AD16 /* MessangerApp.swift in Sources */,
+				97A93C5A252AA014001E103C /* MessageView.swift in Sources */,
+				97BCF3552528FE7300A3A490 /* PublicKeyListView.swift in Sources */,
+				97A93C45252A26D7001E103C /* Crypto.swift in Sources */,
 				97C8E10F2527D6400006AD16 /* Messanger.xcdatamodeld in Sources */,
+				97A93BFF25292164001E103C /* EnvironmentValues.swift in Sources */,
+				97A93BE8252913F7001E103C /* KeychainModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +426,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A93C5B252AA014001E103C /* MessageView.swift in Sources */,
+				97A93C1925292BCD001E103C /* GenericPasswordConvertible.swift in Sources */,
 				97C8E11A2527D6400006AD16 /* MessangerTests.swift in Sources */,
+				97A93C46252A26D7001E103C /* Crypto.swift in Sources */,
+				97A93C0F25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */,
+				97A93C0025292164001E103C /* EnvironmentValues.swift in Sources */,
+				97A93C62252AB1C7001E103C /* MessageFormView.swift in Sources */,
+				97A93C51252A9DFF001E103C /* MessagesListView.swift in Sources */,
+				97BCF3562528FE7300A3A490 /* PublicKeyListView.swift in Sources */,
+				97A13B5C2529042500FA27E1 /* KeyView.swift in Sources */,
+				97A93C2025292BEF001E103C /* Data+Additions.swift in Sources */,
+				97A93BF32529172D001E103C /* UserModel.swift in Sources */,
+				97A93BE9252913F7001E103C /* KeychainModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +446,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A93C5C252AA014001E103C /* MessageView.swift in Sources */,
+				97A93C1A25292BCD001E103C /* GenericPasswordConvertible.swift in Sources */,
 				97C8E1252527D6410006AD16 /* MessangerUITests.swift in Sources */,
+				97A93C47252A26D7001E103C /* Crypto.swift in Sources */,
+				97A93C1025292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */,
+				97A93C0125292164001E103C /* EnvironmentValues.swift in Sources */,
+				97A93C63252AB1C7001E103C /* MessageFormView.swift in Sources */,
+				97A93C52252A9DFF001E103C /* MessagesListView.swift in Sources */,
+				97BCF3572528FE7300A3A490 /* PublicKeyListView.swift in Sources */,
+				97A13B5D2529042500FA27E1 /* KeyView.swift in Sources */,
+				97A93C2125292BEF001E103C /* Data+Additions.swift in Sources */,
+				97A93BF42529172D001E103C /* UserModel.swift in Sources */,
+				97A93BEA252913F7001E103C /* KeychainModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +599,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Messanger/Messanger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Messanger/Preview Content\"";
 				DEVELOPMENT_TEAM = B33FA55WD3;
@@ -435,7 +610,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Maltagliati.Messanger;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Maltagliati.Messanger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -447,6 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Messanger/Messanger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Messanger/Preview Content\"";
 				DEVELOPMENT_TEAM = B33FA55WD3;
@@ -457,7 +633,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Maltagliati.Messanger;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Maltagliati.Messanger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
