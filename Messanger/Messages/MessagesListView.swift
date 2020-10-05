@@ -27,6 +27,7 @@ struct MessagesListView: View {
                     Item(message: message)
                 }
             }
+            .onDelete(perform: deleteItems)
         }
         .sheet(isPresented: $isPresentingNewMessage) {
             MessageFormView(publicKey: publicKey,
@@ -41,6 +42,20 @@ struct MessagesListView: View {
             }
         )
     }
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            context.perform {
+                offsets.map { messages[$0] }.forEach(context.delete)
+                do {
+                    try context.save()
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+
 }
 
 private extension MessagesListView {
