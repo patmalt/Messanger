@@ -2,7 +2,7 @@ import SwiftUI
 import CryptoKit
 
 struct KeyView: View {
-    @Binding var key: Curve25519.KeyAgreement.PrivateKey?
+    @Binding var keychainViewModel: KeychainModel.ViewModel?
     @State var isShowingPrivateKey = false
     
     var body: some View {
@@ -11,7 +11,7 @@ struct KeyView: View {
                 HStack(alignment: .top) {
                     Label("Public Key", systemImage: "key")
                     Spacer()
-                    Text(key?.publicKey.rawRepresentation.hex ?? "No key 🤒").font(.system(.body, design: .monospaced))
+                    Text(publicKeyString).font(.system(.body, design: .monospaced))
                 }
                 .padding()
                 Divider()
@@ -19,7 +19,7 @@ struct KeyView: View {
                     Label("Private Key", systemImage: "key")
                     Spacer()
                     if isShowingPrivateKey {
-                        Text(key?.rawRepresentation.hex ?? "No key 🤒").font(.system(.body, design: .monospaced))
+                        Text(privateKeyString).font(.system(.body, design: .monospaced))
                     } else {
                         Text("Tap to reveal").font(.system(.body, design: .monospaced))
                     }
@@ -32,6 +32,15 @@ struct KeyView: View {
                 .padding()
             }
         }
-        
+    }
+    
+    private var publicKeyString: String {
+        guard let curvePrivateKey = keychainViewModel?.key else { return "No Key 🤒" }
+        return curvePrivateKey.publicKey.rawRepresentation.hex
+    }
+    
+    private var privateKeyString: String {
+        guard let curvePrivateKey = keychainViewModel?.key else { return "No Key 🤒" }
+        return curvePrivateKey.rawRepresentation.hex
     }
 }

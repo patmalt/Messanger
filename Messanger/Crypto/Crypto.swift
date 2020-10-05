@@ -13,23 +13,24 @@ struct Crypto {
     
     func encyrpt(message: String, usingPublicKey publicKey: PublicKey, completed: @escaping (Bool) -> ()) {
         let secret = Data(message.utf8)
-        if
-            let privateKey = keychainModel.key,
-            let rawPublicKey = publicKey.key,
-            let curvePublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPublicKey),
-            let crypto = try? Crypto.encrypt(secret: secret,
-                                             salt: Crypto.salt,
-                                             shared: Data(),
-                                             byteCount: Crypto.byteCount,
-                                             hash: SHA512.self,
-                                             senderPrivateKey: privateKey,
-                                             publicKey: curvePublicKey)
-        {
-            context.perform {
+        context.perform {
+            if
+                let viewModel = keychainModel.viewModel,
+                let rawPublicKey = publicKey.key,
+                let curvePublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPublicKey),
+                let crypto = try? Crypto.encrypt(secret: secret,
+                                                 salt: Crypto.salt,
+                                                 shared: Data(),
+                                                 byteCount: Crypto.byteCount,
+                                                 hash: SHA512.self,
+                                                 senderPrivateKey: viewModel.key,
+                                                 publicKey: curvePublicKey)
+            {
                 let message = Message(context: context)
                 message.body = crypto
                 message.sentWith = publicKey
                 message.sent = Date()
+                message.decryptWithId = viewModel.id
                 do {
                     try context.save()
                     completed(true)
@@ -42,31 +43,47 @@ struct Crypto {
     }
     
     func decrypt(message: Message) -> String {
-        guard let data = message.body else {
-            return "No body"
+        var string = String()
+        context.performAndWait {
+            guard let data = message.body else {
+                string = "No body"
+                return
+            }
+            guard let privateKey = keychainModel.viewModel?.key else {
+                string = "No Private Key"
+                return
+            }
+            guard let sentPrivateKeyId = message.decryptWithId else {
+                string = "No Sent Private Key ID"
+                return
+            }
+            let request: NSFetchRequest<PublicKey> = PublicKey.fetchRequest()
+            request.predicate = NSPredicate(format: "privateKeyId == %@", sentPrivateKeyId.uuidString)
+            guard
+                let sentPublicKeyFetchResult = try? context.fetch(request),
+                let rawSentPublicKey = sentPublicKeyFetchResult.first?.key,
+                let curveSentPublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawSentPublicKey)
+            else {
+                string = "No Matching Sent Public Key"
+                return
+            }
+            guard let decrypted = try? Crypto.decrypt(combined: data,
+                                                      salt: Crypto.salt,
+                                                      shared: Data(),
+                                                      byteCount: Crypto.byteCount,
+                                                      hash: SHA512.self,
+                                                      privateKey: privateKey,
+                                                      senderPublicKey: curveSentPublicKey) else {
+                string = "Unable to decrypt"
+                return
+            }
+            guard let value = String(data: decrypted, encoding: .utf8) else {
+                string = "Unable to create string"
+                return
+            }
+            string = value
         }
-        guard let privateKey = keychainModel.key else {
-            return "No Private Key"
-        }
-        guard
-            let rawPublcKey = message.sentWith?.key,
-            let publicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPublcKey)
-        else {
-            return "No Public Key"
-        }
-        guard let decrypted = try? Crypto.decrypt(combined: data,
-                                                  salt: Crypto.salt,
-                                                  shared: Data(),
-                                                  byteCount: Crypto.byteCount,
-                                                  hash: SHA512.self,
-                                                  privateKey: privateKey,
-                                                  senderPublicKey: publicKey) else {
-            return "Unable to decrypt"
-        }
-        guard let value = String(data: decrypted, encoding: .utf8) else {
-            return "Unable to create string"
-        }
-        return value
+        return string
     }
     
     private static func encrypt<Hash: HashFunction>(secret: Data,

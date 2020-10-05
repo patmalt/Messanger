@@ -5,7 +5,7 @@ import CloudKit
 import CoreData
 
 class KeychainModel: ObservableObject {
-    @Published var key: Curve25519.KeyAgreement.PrivateKey?
+    @Published var viewModel: ViewModel?
     private let userModel: UserModel
     private let context: NSManagedObjectContext
     private var disposeBag = Set<AnyCancellable>()
@@ -23,11 +23,13 @@ class KeychainModel: ObservableObject {
                 let request: NSFetchRequest<PrivateKey> = PrivateKey.fetchRequest()
                 self?.context.perform { [weak self] in
                     if
-                        let rawKey = try? self?.context.fetch(request).first?.key,
+                        let keyObject = try? self?.context.fetch(request).first,
+                        let rawKey = keyObject.key,
+                        let id = keyObject.id,
                         let key = try? Curve25519.KeyAgreement.PrivateKey(rawRepresentation: rawKey)
                     {
                         DispatchQueue.main.async {
-                            self?.key = key
+                            self?.viewModel = ViewModel(key: key, id: id)
                         }
                     } else {
                         self?.save(key: Curve25519.KeyAgreement.PrivateKey(),
@@ -41,24 +43,31 @@ class KeychainModel: ObservableObject {
     private func save(key: Curve25519.KeyAgreement.PrivateKey, name: String) {
         context.perform { [weak self] in
             guard let self = self else { return }
-            
+            let uuid = UUID()
             let newPrivateKey = PrivateKey(context: self.context)
             newPrivateKey.key = key.rawRepresentation
+            newPrivateKey.id = uuid
             
             let newPublicKey = PublicKey(context: self.context)
-            newPublicKey.name = name
+            newPublicKey.name = name + " \(Int.random(in: 1...1000))"
             newPublicKey.key = key.publicKey.rawRepresentation
             newPublicKey.messages = []
+            newPublicKey.privateKeyId = uuid
             
             do {
                 try self.context.save()
                 DispatchQueue.main.async {
-                    self.key = key
+                    self.viewModel = ViewModel(key: key, id: uuid)
                 }
             } catch {
                 print(error)
             }
         }
+    }
+    
+    struct ViewModel {
+        let key: Curve25519.KeyAgreement.PrivateKey
+        let id: UUID
     }
     
     private var user: AnyPublisher<CKUserIdentity, Never> {

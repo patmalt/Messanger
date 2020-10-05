@@ -18,7 +18,7 @@ struct ContentView: View {
                 )
                 .sheet(isPresented: $isShowingKeyView) {
                     NavigationView {
-                        KeyView(key: $keychainModel.key)
+                        KeyView(keychainViewModel: $keychainModel.viewModel)
                             .navigationTitle("My Key")
                             .navigationBarItems(
                                 leading: Button(action: myKeyButtonAction) {
