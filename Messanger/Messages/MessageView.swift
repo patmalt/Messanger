@@ -4,8 +4,12 @@ import CryptoKit
 
 struct MessageView: View {
     let message: Message
-    let context: NSManagedObjectContext
-    let keychainModel: KeychainModel
+    let crypto: Crypto
+    
+    init(message: Message, context: NSManagedObjectContext, keychainModel: KeychainModel) {
+        self.message = message
+        crypto = Crypto(context: context, keychainModel: keychainModel)
+    }
     
     var body: some View {
         ScrollView {
@@ -28,28 +32,5 @@ struct MessageView: View {
         .navigationTitle("Message")
     }
     
-    private var decrypted: String {
-        guard let data = message.body else {
-            return "No body"
-        }
-        guard let privateKey = keychainModel.key else {
-            return "No Private Key"
-        }
-        guard let rawPublcKey = message.sentWith?.key, let publicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPublcKey) else {
-            return "No Public Key"
-        }
-        guard let decrypted = try? Crypto.decrypt(combined: data,
-                                                  salt: Crypto.salt,
-                                                  shared: Data(),
-                                                  byteCount: Crypto.byteCount,
-                                                  hash: SHA512.self,
-                                                  privateKey: privateKey,
-                                                  senderPublicKey: publicKey) else {
-            return "Unable to decrypt"
-        }
-        guard let value = String(data: decrypted, encoding: .utf8) else {
-            return "Unable to create string"
-        }
-        return value
-    }
+    private var decrypted: String { crypto.decrypt(message: message) }
 }
