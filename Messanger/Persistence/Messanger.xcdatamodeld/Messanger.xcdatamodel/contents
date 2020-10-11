@@ -30,9 +30,9 @@
         <memberEntity name="User"/>
     </configuration>
     <elements>
-        <element name="Message" positionX="248.01171875" positionY="90.1875" width="128" height="103"/>
-        <element name="PrivateKey" positionX="-81.54296875" positionY="-52.52734375" width="128" height="73"/>
-        <element name="PublicKey" positionX="105.3203125" positionY="28.75390625" width="128" height="73"/>
-        <element name="User" positionX="-36.63671875" positionY="182.92578125" width="128" height="118"/>
+        <element name="Message" positionX="260.12890625" positionY="156.0703125" width="128" height="103"/>
+        <element name="PrivateKey" positionX="53.18359375" positionY="19.4765625" width="128" height="73"/>
+        <element name="PublicKey" positionX="-124.69921875" positionY="168.23046875" width="128" height="73"/>
+        <element name="User" positionX="56.921875" positionY="147.08203125" width="128" height="118"/>
     </elements>
 </model>
