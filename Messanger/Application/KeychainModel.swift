@@ -32,8 +32,13 @@ class KeychainModel: ObservableObject {
                             self?.viewModel = ViewModel(key: key, id: id)
                         }
                     } else {
-                        self?.save(key: Curve25519.KeyAgreement.PrivateKey(),
-                                   name: user.nameComponents?.display ?? UUID().uuidString)
+                        let name: String
+                        if let nameComponents = user.nameComponents {
+                            name = PersonNameComponentsFormatter().string(from: nameComponents)
+                        } else {
+                            name = UUID().uuidString
+                        }
+                        self?.save(key: Curve25519.KeyAgreement.PrivateKey(), name: name)
                     }
                 }
             }
@@ -121,27 +126,5 @@ class KeychainModel: ObservableObject {
             kSecClassIdentity
         ]
         .forEach { SecItemDelete([kSecClass: $0] as NSDictionary) }
-    }
-}
-
-private extension PersonNameComponents {
-    var display: String {
-        let first = givenName
-        let last = familyName
-        if let first = first {
-            if let last = last {
-                return "\(first) \(last)"
-            } else {
-                return "\(first)"
-            }
-        } else if let last = last {
-            if let first = first {
-                return "\(first) \(last)"
-            } else {
-                return "\(last)"
-            }
-        } else {
-            return UUID().uuidString
-        }
     }
 }
