@@ -57,10 +57,17 @@ struct Crypto {
                 string = "No Private Key"
                 return
             }
-            guard let rawSentPublicKey = message.from?.key,
-                  let curveSentPublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawSentPublicKey)
+            guard let sender = message.from else {
+                string = "No Sender"
+                return
+            }
+            guard let rawSenderPublicKey = sender.key else {
+                string = "No Sender Public Key"
+                return
+            }
+            guard let curveSentPublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawSenderPublicKey)
             else {
-                string = "No Matching Sent Public Key"
+                string = "No Computed Sent Public Key"
                 return
             }
             guard let decrypted = try? Crypto.decrypt(combined: data,
