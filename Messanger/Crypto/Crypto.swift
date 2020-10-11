@@ -25,14 +25,13 @@ struct Crypto {
                                                  hash: SHA512.self,
                                                  senderPrivateKey: viewModel.key,
                                                  publicKey: curvePublicKey),
-                let senderPublicKeyObjectId = viewModel.user.publicKey?.objectID,
-                let senderPublicKey = context.object(with: senderPublicKeyObjectId) as? PublicKey
+                let sender = context.object(with: viewModel.user.objectID) as? User
             {
                 let message = Message(context: context)
                 message.body = crypto
                 message.sent = Date()
                 message.to = user
-                message.from = senderPublicKey
+                message.from = sender
                 do {
                     try context.save()
                     completed(true)
@@ -61,7 +60,7 @@ struct Crypto {
                 string = "No Sender"
                 return
             }
-            guard let rawSenderPublicKey = sender.key else {
+            guard let rawSenderPublicKey = sender.publicKey?.key else {
                 string = "No Sender Public Key"
                 return
             }

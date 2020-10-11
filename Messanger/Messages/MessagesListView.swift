@@ -64,14 +64,23 @@ struct MessagesListView: View {
 
 private extension MessagesListView {
     struct Item: View {
+        private static let formatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .short
+            formatter.timeZone = TimeZone.current
+            return formatter
+        }()
+        
         let message: Message
         
         @ViewBuilder
         var body: some View {
-            if let date = message.sent {
-                Text(verbatim: date.description)
-            } else {
-                Text("Invalid Message")
+            VStack(alignment: .leading) {
+                Text(verbatim: message.from?.name ?? "Unknown Sender").font(.title2)
+                if let date = message.sent {
+                    Text(date, formatter: Item.formatter).font(.title3)
+                }
             }
         }
     }

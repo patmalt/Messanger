@@ -3,7 +3,7 @@
     <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
         <attribute name="body" optional="YES" attributeType="Binary"/>
         <attribute name="sent" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicKey" inverseName="messages" inverseEntity="PublicKey"/>
+        <relationship name="from" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sentMessages" inverseEntity="User"/>
         <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="messages" inverseEntity="User"/>
     </entity>
     <entity name="PrivateKey" representedClassName="PrivateKey" syncable="YES" codeGenerationType="class">
@@ -12,7 +12,6 @@
     </entity>
     <entity name="PublicKey" representedClassName="PublicKey" syncable="YES" codeGenerationType="class">
         <attribute name="key" optional="YES" attributeType="Binary"/>
-        <relationship name="messages" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="publicKey" inverseEntity="User"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
@@ -20,6 +19,7 @@
         <attribute name="recordId" optional="YES" attributeType="String"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="to" inverseEntity="Message"/>
         <relationship name="publicKey" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicKey" inverseName="user" inverseEntity="PublicKey"/>
+        <relationship name="sentMessages" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message"/>
     </entity>
     <configuration name="Private" usedWithCloudKit="YES">
         <memberEntity name="PrivateKey"/>
@@ -32,7 +32,7 @@
     <elements>
         <element name="Message" positionX="248.01171875" positionY="90.1875" width="128" height="103"/>
         <element name="PrivateKey" positionX="-81.54296875" positionY="-52.52734375" width="128" height="73"/>
-        <element name="PublicKey" positionX="105.3203125" positionY="28.75390625" width="128" height="88"/>
-        <element name="User" positionX="-36.63671875" positionY="182.92578125" width="128" height="103"/>
+        <element name="PublicKey" positionX="105.3203125" positionY="28.75390625" width="128" height="73"/>
+        <element name="User" positionX="-36.63671875" positionY="182.92578125" width="128" height="118"/>
     </elements>
 </model>
