@@ -19,7 +19,7 @@
         <attribute name="recordId" optional="YES" attributeType="String"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="to" inverseEntity="Message"/>
         <relationship name="publicKey" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicKey" inverseName="user" inverseEntity="PublicKey"/>
-        <relationship name="sentMessages" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message"/>
+        <relationship name="sentMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="from" inverseEntity="Message"/>
     </entity>
     <configuration name="Private" usedWithCloudKit="YES">
         <memberEntity name="PrivateKey"/>
