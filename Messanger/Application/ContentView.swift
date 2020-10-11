@@ -9,8 +9,8 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            PublicKeyListView(context: context, keychainModel: keychainModel)
-                .navigationTitle("Public Keys")
+            UsersListView(context: context, keychainModel: keychainModel)
+                .navigationTitle("Users")
                 .navigationBarItems(
                     leading: Button(action: myKeyButtonAction) {
                         Label("My Key", systemImage: "key")

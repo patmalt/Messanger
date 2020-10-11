@@ -19,50 +19,105 @@ class KeychainModel: ObservableObject {
     private func primePrivateKeyOrGenerateIfNecessary() {
         user
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] user in
-                let request: NSFetchRequest<PrivateKey> = PrivateKey.fetchRequest()
-                self?.context.perform { [weak self] in
-                    if
-                        let keyObject = try? self?.context.fetch(request).first,
-                        let rawKey = keyObject.key,
-                        let id = keyObject.id,
-                        let key = try? Curve25519.KeyAgreement.PrivateKey(rawRepresentation: rawKey)
-                    {
-                        DispatchQueue.main.async {
-                            self?.viewModel = ViewModel(key: key, id: id)
-                        }
-                    } else {
-                        let name: String
-                        if let nameComponents = user.nameComponents {
-                            name = PersonNameComponentsFormatter().string(from: nameComponents)
+            .sink { [weak self] iCloudUser in
+                guard let self = self else { return }
+                guard let userRecordId = iCloudUser.userRecordID?.recordName else { return }
+                Publishers
+                    .CombineLatest(
+                        self.firstPrivateKey,
+                        self.user(recordId: userRecordId)
+                    )
+                    .sink { error in
+                        print(error)
+                    } receiveValue: { [weak self] values in
+                        let (possibleExistingKey, user) = values
+                        if let existingKey = possibleExistingKey {
+                            DispatchQueue.main.async {
+                                self?.viewModel = ViewModel(key: existingKey, user: user)
+                            }
                         } else {
-                            name = UUID().uuidString
+                            self?.save(user: user,
+                                       andKey: Curve25519.KeyAgreement.PrivateKey(),
+                                       fromICloudUser: iCloudUser)
                         }
-                        self?.save(key: Curve25519.KeyAgreement.PrivateKey(), name: name)
                     }
-                }
+                    .store(in: &self.disposeBag)
             }
             .store(in: &disposeBag)
     }
     
-    private func save(key: Curve25519.KeyAgreement.PrivateKey, name: String) {
+    private var firstPrivateKey: Future<Curve25519.KeyAgreement.PrivateKey?, Error> {
+        let privateKeyRequest: NSFetchRequest<PrivateKey> = PrivateKey.fetchRequest()
+        return Future { [weak self] promise in
+            self?.context.perform {
+                do {
+                    guard let keyObjects = try self?.context.fetch(privateKeyRequest) else {
+                        promise(.failure(NSError(domain: "Cannot execute private key fetch request", code: 0, userInfo: nil)))
+                        return
+                    }
+                    if let rawKey = keyObjects.first?.key {
+                        guard let existingKey = try? Curve25519.KeyAgreement.PrivateKey(rawRepresentation: rawKey) else {
+                            promise(.failure(NSError(domain: "Cannot create key from record", code: 0, userInfo: nil)))
+                            return
+                        }
+                        promise(.success(existingKey))
+                    } else {
+                        promise(.success(nil))
+                    }
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+    }
+    
+    private func user(recordId: String) -> Future<User, Error> {
+        let userFetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        userFetchRequest.predicate = NSPredicate(format: "recordId == %@", recordId)
+        return Future { [weak self] promise in
+            self?.context.perform { [weak self] in
+                guard let self = self else { return }
+                do {
+                    let users = try self.context.fetch(userFetchRequest)
+                    if let user = users.first {
+                        promise(.success(user))
+                    } else {
+                        let newUser = User(context: self.context)
+                        newUser.recordId = recordId
+                        newUser.messages = []
+                        promise(.success(newUser))
+                    }
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+    }
+    
+    private func save(user: User, andKey key: Curve25519.KeyAgreement.PrivateKey, fromICloudUser iCloudUser: CKUserIdentity) {
         context.perform { [weak self] in
             guard let self = self else { return }
-            let uuid = UUID()
+            let name: String
+            if let nameComponents = iCloudUser.nameComponents {
+                name = PersonNameComponentsFormatter().string(from: nameComponents)
+            } else {
+                name = UUID().uuidString
+            }
+            
             let newPrivateKey = PrivateKey(context: self.context)
             newPrivateKey.key = key.rawRepresentation
-            newPrivateKey.id = uuid
-            
+            newPrivateKey.userRecordId = iCloudUser.userRecordID?.recordName
+
             let newPublicKey = PublicKey(context: self.context)
-            newPublicKey.name = name + " \(Int.random(in: 1...1000))"
             newPublicKey.key = key.publicKey.rawRepresentation
-            newPublicKey.messages = []
-            newPublicKey.privateKeyId = uuid
+
+            user.name = name
+            user.publicKey = newPublicKey
             
             do {
                 try self.context.save()
                 DispatchQueue.main.async {
-                    self.viewModel = ViewModel(key: key, id: uuid)
+                    self.viewModel = ViewModel(key: key, user: user)
                 }
             } catch {
                 print(error)
@@ -72,7 +127,7 @@ class KeychainModel: ObservableObject {
     
     struct ViewModel {
         let key: Curve25519.KeyAgreement.PrivateKey
-        let id: UUID
+        let user: User
     }
     
     private var user: AnyPublisher<CKUserIdentity, Never> {

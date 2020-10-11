@@ -3,20 +3,23 @@ import CoreData
 import CryptoKit
 
 struct MessagesListView: View {
-    let publicKey: PublicKey
+    let user: User
+    private let publicKey: PublicKey
     let context: NSManagedObjectContext
     let keychainModel: KeychainModel
-    private var messagesRequest: FetchRequest<Message>
+    private let messagesRequest: FetchRequest<Message>
     private var messages: FetchedResults<Message> { messagesRequest.wrappedValue }
     @State private var isPresentingNewMessage = false
     
-    init(publicKey: PublicKey, context: NSManagedObjectContext, keychainModel: KeychainModel) {
+    init?(user: User, context: NSManagedObjectContext, keychainModel: KeychainModel) {
+        guard let publicKey = user.publicKey else { return nil }
+        self.user = user
         self.publicKey = publicKey
         self.context = context
         self.keychainModel = keychainModel
         messagesRequest = FetchRequest(
             sortDescriptors:  [NSSortDescriptor(keyPath: \Message.sent, ascending: true)],
-            predicate: NSPredicate(format: "sentWith = %@", publicKey),
+            predicate: NSPredicate(format: "to == %@", user),
             animation: .default)
     }
     
@@ -30,7 +33,8 @@ struct MessagesListView: View {
             .onDelete(perform: deleteItems)
         }
         .sheet(isPresented: $isPresentingNewMessage) {
-            MessageFormView(publicKey: publicKey,
+            MessageFormView(user: user,
+                            publicKey: publicKey,
                             context: context,
                             keychainModel: keychainModel,
                             isPresented: $isPresentingNewMessage)

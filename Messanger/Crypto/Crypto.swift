@@ -11,7 +11,7 @@ struct Crypto {
         self.keychainModel = keychainModel
     }
     
-    func encyrpt(message: String, usingPublicKey publicKey: PublicKey, completed: @escaping (Bool) -> ()) {
+    func encyrpt(message: String, to user: User, usingPublicKey publicKey: PublicKey, completed: @escaping (Bool) -> ()) {
         let secret = Data(message.utf8)
         context.perform {
             if
@@ -24,13 +24,15 @@ struct Crypto {
                                                  byteCount: Crypto.byteCount,
                                                  hash: SHA512.self,
                                                  senderPrivateKey: viewModel.key,
-                                                 publicKey: curvePublicKey)
+                                                 publicKey: curvePublicKey),
+                let senderPublicKeyObjectId = viewModel.user.publicKey?.objectID,
+                let senderPublicKey = context.object(with: senderPublicKeyObjectId) as? PublicKey
             {
                 let message = Message(context: context)
                 message.body = crypto
-                message.sentWith = publicKey
                 message.sent = Date()
-                message.decryptWithId = viewModel.id
+                message.to = user
+                message.from = senderPublicKey
                 do {
                     try context.save()
                     completed(true)
@@ -38,6 +40,8 @@ struct Crypto {
                     print(error)
                     completed(false)
                 }
+            } else {
+                completed(false)
             }
         }
     }
@@ -53,16 +57,8 @@ struct Crypto {
                 string = "No Private Key"
                 return
             }
-            guard let sentPrivateKeyId = message.decryptWithId else {
-                string = "No Sent Private Key ID"
-                return
-            }
-            let request: NSFetchRequest<PublicKey> = PublicKey.fetchRequest()
-            request.predicate = NSPredicate(format: "privateKeyId == %@", sentPrivateKeyId.uuidString)
-            guard
-                let sentPublicKeyFetchResult = try? context.fetch(request),
-                let rawSentPublicKey = sentPublicKeyFetchResult.first?.key,
-                let curveSentPublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawSentPublicKey)
+            guard let rawSentPublicKey = message.from?.key,
+                  let curveSentPublicKey = try? Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawSentPublicKey)
             else {
                 string = "No Matching Sent Public Key"
                 return

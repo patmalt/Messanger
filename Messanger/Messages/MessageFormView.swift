@@ -3,6 +3,7 @@ import CoreData
 import CryptoKit
 
 struct MessageFormView: View {
+    let user: User
     let publicKey: PublicKey
     let context: NSManagedObjectContext
     let keychainModel: KeychainModel
@@ -36,7 +37,7 @@ struct MessageFormView: View {
             context: context,
             keychainModel: keychainModel
         )
-        .encyrpt(message: text, usingPublicKey: publicKey) { success in
+        .encyrpt(message: text, to: user, usingPublicKey: publicKey) { success in
             guard success else { return }
             isPresented = false
         }
