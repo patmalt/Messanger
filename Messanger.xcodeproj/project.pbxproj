@@ -50,6 +50,7 @@
 		97C8E1252527D6410006AD16 /* MessangerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1242527D6410006AD16 /* MessangerUITests.swift */; };
 		97C8E13B2527D84D0006AD16 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C8E13A2527D84D0006AD16 /* CloudKit.framework */; };
 		97F30F1B2534931700A6D72B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F30F1A2534931700A6D72B /* LandingView.swift */; };
+		97F30F2D2534A3FC00A6D72B /* AnimatableSystemFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F30F2C2534A3FC00A6D72B /* AnimatableSystemFontModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		97C8E1352527D8380006AD16 /* Messanger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Messanger.entitlements; sourceTree = "<group>"; };
 		97C8E13A2527D84D0006AD16 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		97F30F1A2534931700A6D72B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		97F30F2C2534A3FC00A6D72B /* AnimatableSystemFontModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableSystemFontModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 				97C8E1082527D6400006AD16 /* Preview Content */,
 				97A13B612529045C00FA27E1 /* Private Key */,
 				97A93C0C25292B70001E103C /* Protocols */,
+				97F30F2B2534A1B500A6D72B /* View Modifiers */,
 			);
 			path = Messanger;
 			sourceTree = "<group>";
@@ -270,6 +273,14 @@
 				97F30F1A2534931700A6D72B /* LandingView.swift */,
 			);
 			path = Landing;
+			sourceTree = "<group>";
+		};
+		97F30F2B2534A1B500A6D72B /* View Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				97F30F2C2534A3FC00A6D72B /* AnimatableSystemFontModifier.swift */,
+			);
+			path = "View Modifiers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,6 +417,7 @@
 				97A93C50252A9DFF001E103C /* MessagesListView.swift in Sources */,
 				97A93BF22529172D001E103C /* UserModel.swift in Sources */,
 				97A93C61252AB1C7001E103C /* MessageFormView.swift in Sources */,
+				97F30F2D2534A3FC00A6D72B /* AnimatableSystemFontModifier.swift in Sources */,
 				97A93C1F25292BEF001E103C /* Data+Additions.swift in Sources */,
 				97F30F1B2534931700A6D72B /* LandingView.swift in Sources */,
 				97A93C0E25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */,
