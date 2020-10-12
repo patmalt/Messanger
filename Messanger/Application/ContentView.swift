@@ -19,7 +19,7 @@ struct ContentView: View {
                             Label("My Key", systemImage: "key")
                         },
                         trailing: Button(action: newMessageButtonAction) {
-                            Label("New Message", systemImage: "plus")
+                            Label("New", systemImage: "plus")
                         }
                     )
                     .sheet(isPresented: $isShowingKeyView) {

@@ -7,26 +7,28 @@ struct MessageFormView: View {
     let keychainModel: KeychainModel
     @Binding var isPresented: Bool
     @State private var text: String = ""
-    @State private var user: Int = 0
+    @State private var userSelection: Int = 0
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \User.name, ascending: true)],
                   animation: .default)
     private var users: FetchedResults<User>
     
     var body: some View {
-        VStack {
-            Picker("To", selection: $user) {
-                ForEach(users) { (otherUser: User) in
-                    Label(otherUser.name ?? "Unknown name", systemImage: "person")
+        Form {
+            Section {
+                Picker(selection: $userSelection, label: Label("Recipient", systemImage: "person")) {
+                    ForEach(0..<users.count) { index in
+                        Label(users[index].name ?? "Unknown name", systemImage: "person.fill")
+                    }
                 }
             }
-            .pickerStyle(InlinePickerStyle())
-            TextField("Enter your message", text: $text).padding()
-            Spacer()
-            Divider()
-            Button(action: add) {
-                Label("Save", systemImage: "lock.icloud")
+            Section(header: Label("Message", systemImage: "message")) {
+                TextField("Enter your message", text: $text)
             }
-            .padding()
+            Section {
+                Button(action: add) {
+                    Text("Save")
+                }
+            }
         }
         .navigationTitle("New Message")
         .navigationBarItems(
@@ -40,7 +42,7 @@ struct MessageFormView: View {
     private func doneButtonAction() { isPresented.toggle() }
     
     private func add() {
-        let recipient = users[user]
+        let recipient = users[userSelection]
         guard let recipientPublicKey = recipient.publicKey else { return }
         Crypto(
             context: context,
