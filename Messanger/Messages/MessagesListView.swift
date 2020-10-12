@@ -9,9 +9,8 @@ struct MessagesListView: View {
     let keychainModel: KeychainModel
     private let messagesRequest: FetchRequest<Message>
     private var messages: FetchedResults<Message> { messagesRequest.wrappedValue }
-    @State private var isPresentingNewMessage = false
     
-    init?(user: User, context: NSManagedObjectContext, keychainModel: KeychainModel) {
+    init?(user: User, context: NSManagedObjectContext, keychainModel: KeychainModel, searchType: SearchType) {
         guard let publicKey = user.publicKey else { return nil }
         self.user = user
         self.publicKey = publicKey
@@ -19,7 +18,7 @@ struct MessagesListView: View {
         self.keychainModel = keychainModel
         messagesRequest = FetchRequest(
             sortDescriptors:  [NSSortDescriptor(keyPath: \Message.sent, ascending: true)],
-            predicate: NSPredicate(format: "to == %@", user),
+            predicate: NSPredicate(format: "\(searchType.rawValue) == %@", user),
             animation: .default)
     }
     
@@ -32,19 +31,7 @@ struct MessagesListView: View {
             }
             .onDelete(perform: deleteItems)
         }
-        .sheet(isPresented: $isPresentingNewMessage) {
-            MessageFormView(user: user,
-                            publicKey: publicKey,
-                            context: context,
-                            keychainModel: keychainModel,
-                            isPresented: $isPresentingNewMessage)
-        }
         .navigationTitle("Messages")
-        .navigationBarItems(
-            trailing: Button(action: { self.isPresentingNewMessage.toggle() }) {
-                Label("New", systemImage: "plus")
-            }
-        )
     }
     
     private func deleteItems(offsets: IndexSet) {
@@ -59,7 +46,19 @@ struct MessagesListView: View {
             }
         }
     }
+}
 
+extension MessagesListView {
+    struct SearchType: Hashable {
+        static let inbox = SearchType(rawValue: "to")
+        static let outbox = SearchType(rawValue: "from")
+        
+        public let rawValue: String
+        
+        private init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
 }
 
 private extension MessagesListView {

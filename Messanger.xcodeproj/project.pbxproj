@@ -40,9 +40,6 @@
 		97A93C61252AB1C7001E103C /* MessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C60252AB1C7001E103C /* MessageFormView.swift */; };
 		97A93C62252AB1C7001E103C /* MessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C60252AB1C7001E103C /* MessageFormView.swift */; };
 		97A93C63252AB1C7001E103C /* MessageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A93C60252AB1C7001E103C /* MessageFormView.swift */; };
-		97BCF3552528FE7300A3A490 /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCF3542528FE7300A3A490 /* UsersListView.swift */; };
-		97BCF3562528FE7300A3A490 /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCF3542528FE7300A3A490 /* UsersListView.swift */; };
-		97BCF3572528FE7300A3A490 /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCF3542528FE7300A3A490 /* UsersListView.swift */; };
 		97C8E1032527D6400006AD16 /* MessangerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1022527D6400006AD16 /* MessangerApp.swift */; };
 		97C8E1052527D6400006AD16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1042527D6400006AD16 /* ContentView.swift */; };
 		97C8E1072527D6400006AD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C8E1062527D6400006AD16 /* Assets.xcassets */; };
@@ -52,6 +49,7 @@
 		97C8E11A2527D6400006AD16 /* MessangerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1192527D6400006AD16 /* MessangerTests.swift */; };
 		97C8E1252527D6410006AD16 /* MessangerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8E1242527D6410006AD16 /* MessangerUITests.swift */; };
 		97C8E13B2527D84D0006AD16 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C8E13A2527D84D0006AD16 /* CloudKit.framework */; };
+		97F30F1B2534931700A6D72B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F30F1A2534931700A6D72B /* LandingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +81,6 @@
 		97A93C4F252A9DFF001E103C /* MessagesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesListView.swift; sourceTree = "<group>"; };
 		97A93C59252AA014001E103C /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		97A93C60252AB1C7001E103C /* MessageFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFormView.swift; sourceTree = "<group>"; };
-		97BCF3542528FE7300A3A490 /* UsersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListView.swift; sourceTree = "<group>"; };
 		97C8E0FF2527D6400006AD16 /* Messanger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messanger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C8E1022527D6400006AD16 /* MessangerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerApp.swift; sourceTree = "<group>"; };
 		97C8E1042527D6400006AD16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +97,7 @@
 		97C8E1262527D6410006AD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C8E1352527D8380006AD16 /* Messanger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Messanger.entitlements; sourceTree = "<group>"; };
 		97C8E13A2527D84D0006AD16 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		97F30F1A2534931700A6D72B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,14 +190,6 @@
 			path = Messages;
 			sourceTree = "<group>";
 		};
-		97BCF35B2528FE7A00A3A490 /* Users */ = {
-			isa = PBXGroup;
-			children = (
-				97BCF3542528FE7300A3A490 /* UsersListView.swift */,
-			);
-			path = Users;
-			sourceTree = "<group>";
-		};
 		97C8E0F62527D6400006AD16 = {
 			isa = PBXGroup;
 			children = (
@@ -229,13 +219,13 @@
 				97A93C43252A26B6001E103C /* Crypto */,
 				97A93C0B25292B55001E103C /* Extensions */,
 				97C8E1102527D6400006AD16 /* Info.plist */,
+				97F30F18253492E700A6D72B /* Landing */,
 				97A93C4E252A9DE1001E103C /* Messages */,
 				97C8E1352527D8380006AD16 /* Messanger.entitlements */,
 				97A13B632529047A00FA27E1 /* Persistence */,
 				97C8E1082527D6400006AD16 /* Preview Content */,
 				97A13B612529045C00FA27E1 /* Private Key */,
 				97A93C0C25292B70001E103C /* Protocols */,
-				97BCF35B2528FE7A00A3A490 /* Users */,
 			);
 			path = Messanger;
 			sourceTree = "<group>";
@@ -272,6 +262,14 @@
 				97C8E13A2527D84D0006AD16 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97F30F18253492E700A6D72B /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				97F30F1A2534931700A6D72B /* LandingView.swift */,
+			);
+			path = Landing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,12 +407,12 @@
 				97A93BF22529172D001E103C /* UserModel.swift in Sources */,
 				97A93C61252AB1C7001E103C /* MessageFormView.swift in Sources */,
 				97A93C1F25292BEF001E103C /* Data+Additions.swift in Sources */,
+				97F30F1B2534931700A6D72B /* LandingView.swift in Sources */,
 				97A93C0E25292B9A001E103C /* Curve25519KeyAgreementPrivateKey+Additions.swift in Sources */,
 				97A13B5B2529042500FA27E1 /* KeyView.swift in Sources */,
 				97A93C1825292BCD001E103C /* GenericPasswordConvertible.swift in Sources */,
 				97C8E1032527D6400006AD16 /* MessangerApp.swift in Sources */,
 				97A93C5A252AA014001E103C /* MessageView.swift in Sources */,
-				97BCF3552528FE7300A3A490 /* UsersListView.swift in Sources */,
 				97A93C45252A26D7001E103C /* Crypto.swift in Sources */,
 				97C8E10F2527D6400006AD16 /* Messanger.xcdatamodeld in Sources */,
 				97A93BFF25292164001E103C /* EnvironmentValues.swift in Sources */,
@@ -434,7 +432,6 @@
 				97A93C0025292164001E103C /* EnvironmentValues.swift in Sources */,
 				97A93C62252AB1C7001E103C /* MessageFormView.swift in Sources */,
 				97A93C51252A9DFF001E103C /* MessagesListView.swift in Sources */,
-				97BCF3562528FE7300A3A490 /* UsersListView.swift in Sources */,
 				97A13B5C2529042500FA27E1 /* KeyView.swift in Sources */,
 				97A93C2025292BEF001E103C /* Data+Additions.swift in Sources */,
 				97A93BF32529172D001E103C /* UserModel.swift in Sources */,
@@ -454,7 +451,6 @@
 				97A93C0125292164001E103C /* EnvironmentValues.swift in Sources */,
 				97A93C63252AB1C7001E103C /* MessageFormView.swift in Sources */,
 				97A93C52252A9DFF001E103C /* MessagesListView.swift in Sources */,
-				97BCF3572528FE7300A3A490 /* UsersListView.swift in Sources */,
 				97A13B5D2529042500FA27E1 /* KeyView.swift in Sources */,
 				97A93C2125292BEF001E103C /* Data+Additions.swift in Sources */,
 				97A93BF42529172D001E103C /* UserModel.swift in Sources */,
@@ -601,7 +597,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messanger/Messanger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Messanger/Preview Content\"";
 				DEVELOPMENT_TEAM = B33FA55WD3;
 				ENABLE_PREVIEWS = YES;
@@ -625,7 +621,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messanger/Messanger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"Messanger/Preview Content\"";
 				DEVELOPMENT_TEAM = B33FA55WD3;
 				ENABLE_PREVIEWS = YES;
