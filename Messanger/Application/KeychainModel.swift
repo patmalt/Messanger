@@ -20,18 +20,24 @@ class KeychainModel: ObservableObject {
         userModel
             .$user
             .compactMap { $0 }
-            .flatMap { [weak self] (iCloudUser: CKUserIdentity) -> AnyPublisher<(Curve25519.KeyAgreement.PrivateKey?, CKUserIdentity), Error> in
+            .flatMap { [weak self] (iCloudUser: CKUserIdentity) -> AnyPublisher<(CKUserIdentity, String), Error> in
                 guard let self = self, let userRecordId = iCloudUser.userRecordID?.recordName else {
-                    return Empty<(Curve25519.KeyAgreement.PrivateKey?, CKUserIdentity), Error>().eraseToAnyPublisher()
+                    return Empty<(CKUserIdentity, String), Error>().eraseToAnyPublisher()
                 }
-                return self.privateKey(matching: userRecordId).map { ($0, iCloudUser) }.eraseToAnyPublisher()
+                return self.fetchHistory(matching: userRecordId).map { (iCloudUser, userRecordId) }.eraseToAnyPublisher()
             }
-            .flatMap { [weak self] (values: (Curve25519.KeyAgreement.PrivateKey?, CKUserIdentity)) -> AnyPublisher<ViewModel, Error> in
+            .flatMap { [weak self] (iCloudUser: CKUserIdentity, userRecordId: String) -> AnyPublisher<(Curve25519.KeyAgreement.PrivateKey?, CKUserIdentity, String), Error> in
+                guard let self = self else {
+                    return Empty<(Curve25519.KeyAgreement.PrivateKey?, CKUserIdentity, String), Error>().eraseToAnyPublisher()
+                }
+                return self.privateKey(matching: userRecordId).map { ($0, iCloudUser, userRecordId) }.eraseToAnyPublisher()
+            }
+            .flatMap { [weak self] (values: (Curve25519.KeyAgreement.PrivateKey?, CKUserIdentity, String)) -> AnyPublisher<ViewModel, Error> in
                 guard let self = self else {
                     return Empty<ViewModel, Error>().eraseToAnyPublisher()
                 }
-                let (possiblePrivateKey, iCloudUser) = values
-                if let existingKey = possiblePrivateKey, let userRecordId = iCloudUser.userRecordID?.recordName {
+                let (possiblePrivateKey, iCloudUser, userRecordId) = values
+                if let existingKey = possiblePrivateKey {
                     return self.fetchUser(matching: userRecordId, with: existingKey).eraseToAnyPublisher()
                 } else {
                     return self.save(key: Curve25519.KeyAgreement.PrivateKey(), fromICloudUser: iCloudUser).eraseToAnyPublisher()
@@ -97,6 +103,28 @@ class KeychainModel: ObservableObject {
         }
     }
     
+    private func fetchHistory(matching recordId: String) -> Future<Void, Error> {
+        return Future { [weak self] promise in
+            self?.context.perform { [weak self] in
+                guard let self = self else { return }
+                let fetchHistoryRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: self.savedToken )
+                guard
+                    let historyResult = try? self.context.execute(fetchHistoryRequest) as? NSPersistentHistoryResult,
+                    let history = historyResult.result as? [NSPersistentHistoryTransaction]
+                else {
+                    fatalError("Could not convert history result to transactions.")
+                }
+                history.forEach { transaction in
+                    self.context.performAndWait { [weak self] in
+                        self?.context.mergeChanges(fromContextDidSave: transaction.objectIDNotification())
+                    }
+                }
+                self.save(token: history.last?.token)
+                promise(.success(()))
+            }
+        }
+    }
+    
     private func save(key: Curve25519.KeyAgreement.PrivateKey, fromICloudUser iCloudUser: CKUserIdentity) -> Future<ViewModel, Error> {
         Future { [weak self] promise in
             self?.context.perform { [weak self] in
@@ -145,6 +173,38 @@ class KeychainModel: ObservableObject {
             self.rawValue = rawValue
         }
     }
+    
+    private func save(token: NSPersistentHistoryToken?) {
+        guard let token = token,
+              let data = try? NSKeyedArchiver.archivedData(withRootObject: token,
+                                                           requiringSecureCoding: true)
+        else { return }
+        do {
+            try data.write(to: tokenFile)
+        } catch {
+            print("###\(#function): Could not write token data: \(error)")
+        }
+    }
+    
+    private var savedToken: NSPersistentHistoryToken? {
+        try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(Data(contentsOf: tokenFile)) as? NSPersistentHistoryToken
+    }
+    
+    private lazy var tokenFile: URL = {
+        let url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("Messanger", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: url.path) {
+            do {
+                try FileManager
+                    .default
+                    .createDirectory(at: url,
+                                     withIntermediateDirectories: true,
+                                     attributes: nil)
+            } catch {
+                print("###\(#function): Could not create persistent container URL: \(error)")
+            }
+        }
+        return url.appendingPathComponent("token.data", isDirectory: false)
+    }()
     
     static func save(key: Curve25519.KeyAgreement.PrivateKey, account: String) {
         let query = [
