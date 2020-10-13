@@ -17,29 +17,31 @@ struct ContentView: View {
                     .navigationBarItems(
                         leading: Button(action: myKeyButtonAction) {
                             Label("My Key", systemImage: "key")
+                        }
+                        .sheet(isPresented: $isShowingNewMessageView) {
+                            NavigationView {
+                                MessageFormView(context: context,
+                                                keychainModel: keychainModel,
+                                                isPresented: $isShowingNewMessageView)
+                            }
+                            .environment(\.managedObjectContext, context)
                         },
                         trailing: Button(action: newMessageButtonAction) {
                             Label("New", systemImage: "plus")
                         }
+                        .sheet(isPresented: $isShowingKeyView) {
+                            NavigationView {
+                                KeyView(keychainViewModel: $keychainModel.viewModel)
+                                    .navigationTitle("My Key")
+                                    .navigationBarItems(
+                                        leading: Button(action: myKeyButtonAction) {
+                                            Label("Done", systemImage: "xmark.circle")
+                                        }
+                                    )
+                            }
+                            .environment(\.managedObjectContext, context)
+                        }
                     )
-                    .sheet(isPresented: $isShowingKeyView) {
-                        NavigationView {
-                            KeyView(keychainViewModel: $keychainModel.viewModel)
-                                .navigationTitle("My Key")
-                                .navigationBarItems(
-                                    leading: Button(action: myKeyButtonAction) {
-                                        Label("Done", systemImage: "xmark.circle")
-                                    }
-                                )
-                        }
-                    }
-                    .sheet(isPresented: $isShowingNewMessageView) {
-                        NavigationView {
-                            MessageFormView(context: context,
-                                            keychainModel: keychainModel,
-                                            isPresented: $isShowingNewMessageView)
-                        }
-                    }
             } else {
                 Text("Loading...")
                     .animatableSystemFont(size: loadingFontSize)
