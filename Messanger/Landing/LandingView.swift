@@ -13,7 +13,7 @@ struct LandingView: View {
                     destination: MessagesListView(user: user,
                                                   context: context,
                                                   keychainModel: keychainModel,
-                                                  searchType: .inbox)) {
+                                                  searchType: .inbox).navigationTitle("Inbox")) {
                     Label("Inbox", systemImage: "envelope")
                 }
             }
@@ -21,8 +21,8 @@ struct LandingView: View {
                 NavigationLink(destination: MessagesListView(user: user,
                                                              context: context,
                                                              keychainModel: keychainModel,
-                                                             searchType: .outbox)) {
-                    Label("Outbox", systemImage: "envelope.open")
+                                                             searchType: .outbox).navigationTitle("Sent")) {
+                    Label("Sent", systemImage: "paperplane")
                 }
             }
         }

@@ -5,10 +5,12 @@ import CryptoKit
 struct MessageView: View {
     let message: Message
     let crypto: Crypto
+    private let searchType: MessagesListView.SearchType
     
-    init(message: Message, context: NSManagedObjectContext, keychainModel: KeychainModel) {
+    init(message: Message, context: NSManagedObjectContext, keychainModel: KeychainModel, searchType: MessagesListView.SearchType) {
         self.message = message
         crypto = Crypto(context: context, keychainModel: keychainModel)
+        self.searchType = searchType
     }
     
     var body: some View {
@@ -32,5 +34,5 @@ struct MessageView: View {
         .navigationTitle("Message")
     }
     
-    private var decrypted: String { crypto.decrypt(message: message) }
+    private var decrypted: String { crypto.decrypt(message: message, searchType: searchType) }
 }

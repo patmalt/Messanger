@@ -45,7 +45,7 @@ struct Crypto {
         }
     }
     
-    func decrypt(message: Message) -> String {
+    func decrypt(message: Message, searchType: MessagesListView.SearchType) -> String {
         var string = String()
         context.performAndWait {
             guard let data = message.body else {
@@ -56,7 +56,13 @@ struct Crypto {
                 string = "No Private Key"
                 return
             }
-            guard let sender = message.from else {
+            let user: User?
+            if searchType == .outbox {
+                user = message.to
+            } else {
+                user = message.from
+            }
+            guard let sender = user else {
                 string = "No Sender"
                 return
             }

@@ -9,6 +9,7 @@ struct MessagesListView: View {
     let keychainModel: KeychainModel
     private let messagesRequest: FetchRequest<Message>
     private var messages: FetchedResults<Message> { messagesRequest.wrappedValue }
+    private let searchType: SearchType
     
     init?(user: User, context: NSManagedObjectContext, keychainModel: KeychainModel, searchType: SearchType) {
         guard let publicKey = user.publicKey else { return nil }
@@ -20,18 +21,21 @@ struct MessagesListView: View {
             sortDescriptors:  [NSSortDescriptor(keyPath: \Message.sent, ascending: true)],
             predicate: NSPredicate(format: "\(searchType.rawValue) == %@", user),
             animation: .default)
+        self.searchType = searchType
     }
     
     var body: some View {
         List {
             ForEach(messages) { message in
-                NavigationLink(destination: MessageView(message: message, context: context, keychainModel: keychainModel)) {
-                    Item(message: message)
+                NavigationLink(destination: MessageView(message: message,
+                                                        context: context,
+                                                        keychainModel: keychainModel,
+                                                        searchType: searchType)) {
+                    Item(message: message, searchType: searchType)
                 }
             }
             .onDelete(perform: deleteItems)
         }
-        .navigationTitle("Messages")
     }
     
     private func deleteItems(offsets: IndexSet) {
@@ -72,11 +76,16 @@ private extension MessagesListView {
         }()
         
         let message: Message
+        let searchType: MessagesListView.SearchType
         
         @ViewBuilder
         var body: some View {
             VStack(alignment: .leading) {
-                Text(verbatim: message.from?.name ?? "Unknown Sender").font(.title2)
+                if searchType == .outbox {
+                    Text("To: \(message.to?.name ?? "Unknown Recipient")").font(.title2)
+                } else {
+                    Text("From: \(message.from?.name ?? "Unknown Sender")").font(.title2)
+                }
                 if let date = message.sent {
                     Text(date, formatter: Item.formatter).font(.title3)
                 }
